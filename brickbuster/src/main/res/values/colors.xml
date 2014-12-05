@@ -1,0 +1,11 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="brick_red">#c84848</color>
+    <color name="brick_orange">#c66c3a</color>
+    <color name="brick_brown">#b47a30</color>
+    <color name="brick_yellow">#a2a22a</color>
+    <color name="brick_green">#48a048</color>
+    <color name="brick_blue">#4248c8</color>
+
+</resources>
