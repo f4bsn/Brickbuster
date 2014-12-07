@@ -1,6 +1,7 @@
 package com.tumblr.fabfolio.brickbuster;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 public class SpaceActivity extends Activity {
@@ -10,7 +11,9 @@ public class SpaceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        spaceView = new SpaceView(this);
+        Intent intent = getIntent();
+        boolean startNewGame = intent.getBooleanExtra("START_NEW_GAME", true);
+        spaceView = new SpaceView(this, startNewGame);
         setContentView(spaceView);
     }
 

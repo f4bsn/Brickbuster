@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 
 public class MainActivity extends Activity {
+
+    private static final String START_NEW_GAME = "START_NEW_GAME";
+    private boolean startNewGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,23 +24,17 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void resumeGame(View view) {
+        startNewGame = false;
+        Intent intent = new Intent (this, SpaceActivity.class);
+        intent.putExtra(START_NEW_GAME, startNewGame);
+        startActivity(intent);
     }
 
     public void newGame(View view) {
+        startNewGame = true;
         Intent intent = new Intent (this, SpaceActivity.class);
+        intent.putExtra(START_NEW_GAME, startNewGame);
         startActivity(intent);
     }
 }

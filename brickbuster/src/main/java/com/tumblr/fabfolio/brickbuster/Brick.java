@@ -23,8 +23,12 @@ public class Brick extends ShapeDrawable {
         canvas.drawRect(this.getBounds(), paint);
     }
 
-    public int[] getBrickArray() {
+    public int[] getBrickData() {
         return new int[]{this.getBounds().left, this.getBounds().top,
                 this.getBounds().right, this.getBounds().bottom, brickColor};
+    }
+
+    public int getBrickColor () {
+        return brickColor;
     }
 }

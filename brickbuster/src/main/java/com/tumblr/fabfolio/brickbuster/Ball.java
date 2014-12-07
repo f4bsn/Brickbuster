@@ -25,9 +25,11 @@ public class Ball extends ShapeDrawable {
     private boolean brickCollision;
     private Rect batRect;
     private Rect ballRect;
+    private Context context;
 
     public Ball(Context context) {
         super(new RectShape());
+        this.context = context;
         this.getPaint().setColor(context.getResources().getColor(R.color.brick_red));
     }
 
@@ -116,7 +118,8 @@ public class Ball extends ShapeDrawable {
         return batCollision;
     }
 
-    public void checkBricksCollision(ArrayList<Brick> bricks) {
+    public int checkBricksCollision(ArrayList<Brick> bricks) {
+        int points = 0;
         int brickListLength = bricks.size();
         ballRect = this.getBounds();
 
@@ -127,6 +130,8 @@ public class Ball extends ShapeDrawable {
 
         for (int i = brickListLength - 1; i >= 0; i--) {
             Rect brickRect = bricks.get(i).getBounds();
+
+            int color = bricks.get(i).getBrickColor();
 
             if (ballLeft >= brickRect.left - (size * 2)
                     && ballLeft <= brickRect.right + (size * 2)
@@ -151,6 +156,29 @@ public class Ball extends ShapeDrawable {
                 brickCollision = true;
                 bricks.remove(i);
             }
+
+            if (brickCollision) {
+                return points += getPoints(color);
+            }
         }
+        return points;
+    }
+
+    private int getPoints(int color) {
+        int points = 0;
+        if (color == context.getResources().getColor(R.color.brick_blue))
+            points = 1;
+        else if (color == context.getResources().getColor(R.color.brick_green))
+            points = 2;
+        else if (color == context.getResources().getColor(R.color.brick_yellow))
+            points = 3;
+        else if (color == context.getResources().getColor(R.color.brick_brown))
+            points = 4;
+        else if (color == context.getResources().getColor(R.color.brick_orange))
+            points = 5;
+        else if (color == context.getResources().getColor(R.color.brick_red))
+            points = 6;
+
+        return points;
     }
 }
