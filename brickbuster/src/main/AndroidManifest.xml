@@ -9,9 +9,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.tumblr.fabfolio.brickbuster.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,10 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tumblr.fabfolio.brickbuster.SpaceActivity"
+            android:name=".GameActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_space"
             android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:parentActivityName=".MainActivity" >
+        </activity>
+        <activity
+            android:name="com.tumblr.fabfolio.brickbuster.HighscoreActivity"
+            android:label="@string/title_activity_highscore"
+            android:parentActivityName=".MainActivity" >
         </activity>
     </application>
 

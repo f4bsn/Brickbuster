@@ -1,27 +1,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/titleScreen"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_game"
-        android:id="@+id/newGame"
-        android:onClick="newGame"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="122dp" />
+        android:contentDescription="@string/titleScreen"
+        android:src="@drawable/titlescreen" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/resume_game"
-        android:id="@+id/resumeGame"
-        android:onClick="resumeGame"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerInParent="true">
 
+        <Button
+            android:id="@+id/newGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:onClick="newGame"
+            android:text="@string/new_game" />
+
+        <Button
+            android:id="@+id/resumeGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/newGame"
+            android:layout_centerHorizontal="true"
+            android:onClick="resumeGame"
+            android:text="@string/resume_game" />
+
+        <Button
+            android:id="@+id/highscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/resumeGame"
+            android:layout_centerHorizontal="true"
+            android:onClick="showHighscore"
+            android:text="@string/menu_highscore" />
+    </RelativeLayout>
 </RelativeLayout>

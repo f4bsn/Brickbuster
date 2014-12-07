@@ -18,7 +18,7 @@ import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
-public class SpaceView extends SurfaceView implements Runnable {
+public class GameView extends SurfaceView implements Runnable {
 
     private static final int SPEED = 35;
     private final Paint scorePaint;
@@ -41,7 +41,7 @@ public class SpaceView extends SurfaceView implements Runnable {
     private final String FILE_PATH = "data/data/com.tumblr.fabfolio.brickbuster/save.dat";
     private boolean startNewGame = false;
 
-    public SpaceView(Context context, boolean startNewGame) {
+    public GameView(Context context, boolean startNewGame) {
         super(context);
 
         this.startNewGame = startNewGame;
