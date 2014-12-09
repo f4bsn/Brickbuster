@@ -19,16 +19,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_space"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
-        </activity>
-        <activity
             android:name="com.tumblr.fabfolio.brickbuster.HighscoreActivity"
             android:label="@string/title_activity_highscore"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.tumblr.fabfolio.brickbuster.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.tumblr.fabfolio.brickbuster.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:screenOrientation="portrait" android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 

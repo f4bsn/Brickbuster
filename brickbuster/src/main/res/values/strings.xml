@@ -10,5 +10,8 @@
     <string name="menu_highscore">Highscore</string>
     <string name="title_activity_highscore">Highscore</string>
     <string name="highscore">Highscore: N/A</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

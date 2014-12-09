@@ -40,8 +40,8 @@ public class Ball extends ShapeDrawable {
         canvas_height = height;
 
         size = canvas_width / 72;
-        velocityX = size / 2;
-        velocityY = size;
+        velocityX = size;
+        velocityY = size * 2;
 
         leftBound = (canvas_width / 2) - size;
         rightBound = (canvas_width / 2) + size;
@@ -64,17 +64,17 @@ public class Ball extends ShapeDrawable {
 
         if (brickCollision) {
             velocityY = -velocityY;
-            brickCollision = false; // reset
+            brickCollision = false;
         }
 
         if (batCollision && velocityY > 0) {
-            int paddleSplit = (batRect.right - batRect.left) / 4;
+            int batSplit = (batRect.right - batRect.left) / 4;
             int ballCenter = ballRect.centerX();
-            if (ballCenter < batRect.left + paddleSplit) {
+            if (ballCenter < batRect.left + batSplit) {
                 velocityX = -(size * 3);
-            } else if (ballCenter < batRect.left + (paddleSplit * 2)) {
+            } else if (ballCenter < batRect.left + (batSplit * 2)) {
                 velocityX = -(size * 2);
-            } else if (ballCenter < batRect.centerX() + paddleSplit) {
+            } else if (ballCenter < batRect.centerX() + batSplit) {
                 velocityX = size * 2;
             } else {
                 velocityX = size * 3;

@@ -21,11 +21,15 @@ import java.util.ArrayList;
 public class GameView extends SurfaceView implements Runnable {
 
     private static final int SPEED = 35;
-    private final Paint scorePaint;
-    private int points = 0;
-    private final Paint livesPaint;
-    private int lives = 3;
+    private static final int WAIT_FOR = 60;
     private static final int STARTING_LIVES = 3;
+
+    private final Paint textPaint;
+    private final Paint scorePaint;
+    private final Paint livesPaint;
+    private final String FILE_PATH = "data/data/com.tumblr.fabfolio.brickbuster/save.dat";
+    private int points = 0;
+    private int lives = 3;
     private Ball ball;
     private ArrayList<Brick> bricksList;
     private Bat bat;
@@ -38,8 +42,10 @@ public class GameView extends SurfaceView implements Runnable {
     private boolean newGame = false;
     private boolean bricksCleared = true;
     private ObjectOutputStream oos;
-    private final String FILE_PATH = "data/data/com.tumblr.fabfolio.brickbuster/save.dat";
     private boolean startNewGame = false;
+    private int timeWaited = 0;
+    private boolean gameOver = false;
+    private int levelsFinished = 0;
 
     public GameView(Context context, boolean startNewGame) {
         super(context);
@@ -53,13 +59,19 @@ public class GameView extends SurfaceView implements Runnable {
         bat = new Bat(context);
         ball = new Ball(context);
 
+        textPaint = new Paint();
+        textPaint.setColor(Color.GRAY);
+        textPaint.setTextSize(50);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+
         scorePaint = new Paint();
         scorePaint.setColor(Color.GRAY);
-        scorePaint.setTextSize(50);
+        scorePaint.setTextSize(80);
 
         livesPaint = new Paint();
         livesPaint.setColor(Color.GRAY);
-        livesPaint.setTextSize(50);
+        livesPaint.setTextSize(80);
+        livesPaint.setTextAlign(Paint.Align.RIGHT);
     }
 
     private void initBricks(Canvas canvas) {
@@ -126,19 +138,25 @@ public class GameView extends SurfaceView implements Runnable {
                 if (bricksList.size() == 0) {
                     bricksCleared = true;
                     newGame = true;
+                    levelsFinished++;
                 }
 
                 if (newGame) {
                     init();
+                    timeWaited = 0;
                     newGame = false;
+                    if(levelsFinished > 1) {
+                        lives++;
+                    }
                 }
+                timeWaited++;
 
                 if (touched) bat.moveBat((int) touchCoordX);
 
                 drawScene();
                 physicsEngine();
-                canvas.drawText(Integer.toString(points), 30, 60, scorePaint);
-                canvas.drawText(Integer.toString(lives), canvas.getWidth()-30, 60, livesPaint);
+                canvas.drawText(Integer.toString(points), 30, scorePaint.getTextSize(), scorePaint);
+                canvas.drawText(Integer.toString(lives), canvas.getWidth()-30, livesPaint.getTextSize(), livesPaint);
                 holder.unlockCanvasAndPost(canvas);
             }
         }
@@ -152,18 +170,28 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void physicsEngine() {
-        ball.checkBatCollision(bat);
-        lives -= ball.collisionDetect();
-        if( lives < 1) {
-            gameOver();
-            return;
+        if (timeWaited > WAIT_FOR) {
+            ball.checkBatCollision(bat);
+            lives -= ball.collisionDetect();
+            if( lives < 1) {
+                gameOver();
+                gameOver = true;
+                return;
+            }
+            points += ball.checkBricksCollision(bricksList);
+        } else {
+            canvas.drawText("GET READY", canvas.getWidth() / 2, canvas.getHeight() / 3, textPaint);
+            if (gameOver) {
+                canvas.drawText("GAME OVER", canvas.getWidth() / 2,
+                        canvas.getHeight() / 3 - textPaint.getTextSize(), textPaint);
+            }
         }
-        points += ball.checkBricksCollision(bricksList);
     }
 
     private void gameOver() {
         points = 0;
         lives = STARTING_LIVES;
+        levelsFinished = 0;
         bricksList.clear();
     }
 
