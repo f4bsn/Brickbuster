@@ -13,4 +13,3 @@ TODO
 - sound
 - more levels
 - power ups
-- make it fullscreen
